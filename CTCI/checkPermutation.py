@@ -4,7 +4,7 @@
 
 '''
 Runtime: O(3N) --> O(N), since each for loop reads in a string of size N
-Space allocation:
+Space allocation: O(3N)?
 '''
 def check_permutation(string1, string2):
 
@@ -15,18 +15,18 @@ def check_permutation(string1, string2):
         return False
 
     #store first string letters into a dictionary
-    for i in range (0, len(string1)):
-        letter = string1[i]
+    for i in string1:
+        letter = i
         if (letter in letter_dict):
             letter_dict[letter] += 1
         else:
             letter_dict[letter] = 1
 
     #check to see if second string's letters match
-    for j in range (0, len(string2)):
-        second_letter = string2[j]
+    for j in string2:
+        second_letter = j
         if (second_letter in letter_dict):
-            letter_dict[second_letter ] -= 1
+            letter_dict[second_letter] -= 1
         else:
             return False
 
@@ -36,4 +36,4 @@ def check_permutation(string1, string2):
             return False
     return True
 
-print(check_permutation("asdf", "asdf"))
+print(check_permutation("asdf", "asdff"))
