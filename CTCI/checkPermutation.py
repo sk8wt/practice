@@ -2,6 +2,10 @@
 #9/13/2018
 #Given 2 strings, write a method to decide if one is a permutation of the other
 
+'''
+Runtime: O(3N) --> O(N), since each for loop reads in a string of size N
+Space allocation:
+'''
 def check_permutation(string1, string2):
 
     letter_dict = {}
