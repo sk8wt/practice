@@ -1,2 +1,2 @@
 # Practice
-Code written for Advent of Code practice
+Code written for interview practice
