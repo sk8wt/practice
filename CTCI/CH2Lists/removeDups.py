@@ -1,0 +1,3 @@
+def duplicates(list):
+
+prin
