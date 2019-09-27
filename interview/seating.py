@@ -12,27 +12,19 @@ class Theater:
 
     def find_seat(self, char_seats):
         num_seats = int(char_seats)
-
         found_seats = []
-        counter = 0
+
         for row in range(0, len(self.seats)):
             if (self.seats_left[row] >= num_seats):
                 for seat in range(0, len(self.seats[row])):
-                    if (counter != seat):
-                        found_seats = []
-                        counter = seat + 1
-                        print("IN HERE", seat)
-                        continue
                     if (len(found_seats) == num_seats):
                         self.seats_left[row] -= num_seats
-                        print(num_seats, found_seats)
                         return found_seats
                     if (self.seats[row][seat] == None):
-                        print("FOUND SEAT: ", seat)
                         found_seats.append([row, seat])
-                        counter += 1
-            counter = 0
-
+                    else:
+                        found_seats = []
+                        continue
         return []
 
     def buy_seat(self, num_seats):
@@ -56,6 +48,10 @@ class Theater:
         while (cur_seat <= next_seat):
             f.write("%s%s," % (row, cur_seat))
             cur_seat += 1
+
+            if (cur_seat == next_seat):
+                f.write("%s%s" % (row, cur_seat))
+                cur_seat += 1
         f.write("\n")
         f.close()
         return
@@ -73,10 +69,8 @@ with open(filepath) as fp:
         num_tix = theater.parse_file(line.strip())
         final_seats = theater.buy_seat(num_tix)
         if (final_seats == []):
-            print("No seats found!")
+            print("No seats found for reservation %s!" % line[0:4])
         else:
             theater.output_file(line.strip(), final_seats)
-            print(final_seats)
         line = fp.readline()
     fp.close()
-print(theater.seats)
