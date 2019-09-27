@@ -1,21 +1,28 @@
 import sys
+import numpy as np
 
 
 class Theater:
     def __init__(self):
-        self.seat = [None] * 20
-        self.row = [self.seat] * 10
+        self.seats = np.empty([10, 20], dtype=object)
 
     def parse_file(self, content):
         print(content[4:])
         return content[4:]
 
+    def find_seat(self, seats):
+        return "hello"
+
     def buy_seat(self, seats):
+        booked = self.find_seat(seats)
+        first = booked[0]
+        last = booked[-1]
         return
 
 
 theater = Theater()
-print(theater.row)
+theater.seats[0][1] = "hi"
+print(theater.seats)
 
 filepath = sys.argv[1]
 
@@ -25,5 +32,3 @@ with open(filepath) as fp:
         num_tix = theater.parse_file(line.strip())
         theater.buy_seat(num_tix)
         line = fp.readline()
-
-#
