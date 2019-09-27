@@ -8,7 +8,6 @@ class Theater:
         self.seats_left = [20] * 10
 
     def parse_file(self, content):
-        print(content[4:])
         return content[4:]
 
     def find_seat(self, char_seats):
@@ -17,17 +16,23 @@ class Theater:
         found_seats = []
         counter = 0
         for row in range(0, len(self.seats)):
-            for seat in range(0, len(self.seats[row])):
-                if (counter != seat):
-                    found_seats = []
-                    counter = seat + 1
-                    continue
-                if (len(found_seats) == num_seats):
-                    return found_seats
-                if (self.seats[row][seat] == None):
-                    found_seats.append([row, seat])
-                    counter += 1
+            if (self.seats_left[row] >= num_seats):
+                for seat in range(0, len(self.seats[row])):
+                    if (counter != seat):
+                        found_seats = []
+                        counter = seat + 1
+                        print("IN HERE", seat)
+                        continue
+                    if (len(found_seats) == num_seats):
+                        self.seats_left[row] -= num_seats
+                        print(num_seats, found_seats)
+                        return found_seats
+                    if (self.seats[row][seat] == None):
+                        print("FOUND SEAT: ", seat)
+                        found_seats.append([row, seat])
+                        counter += 1
             counter = 0
+
         return []
 
     def buy_seat(self, num_seats):
@@ -38,7 +43,7 @@ class Theater:
         first = booked[0][1]
         last = booked[-1][-1]
 
-        self.seats[row][first:last+1] = 1
+        self.seats[row][first: last+1] = 1
         return [row, first, last]
 
     def output_file(self, reservation, purchases):
@@ -47,9 +52,9 @@ class Theater:
         cur_seat = purchases[1]
         next_seat = purchases[2]
 
-        f.write("%s" % (reservation))
+        f.write("%s " % (reservation[0: 4]))
         while (cur_seat <= next_seat):
-            f.write(" %s%s," % (row, cur_seat))
+            f.write("%s%s," % (row, cur_seat))
             cur_seat += 1
         f.write("\n")
         f.close()
@@ -57,9 +62,6 @@ class Theater:
 
 
 theater = Theater()
-theater.seats[0][1] = "hi"
-print(theater.seats)
-
 filepath = sys.argv[1]
 
 row_dict = {0: "A", 1: "B", 2: "C", 3: "D",
@@ -77,5 +79,4 @@ with open(filepath) as fp:
             print(final_seats)
         line = fp.readline()
     fp.close()
-theater.seats_left[0] = 4
-print(theater.seats_left)
+print(theater.seats)
