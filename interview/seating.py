@@ -48,9 +48,10 @@ class Theater:
         next_seat = purchases[2]
 
         f.write("%s" % (reservation))
-        while (cur_seat < next_seat):
-            f.write(", %s%s\n" % (row, next_seat))
+        while (cur_seat <= next_seat):
+            f.write(" %s%s," % (row, cur_seat))
             cur_seat += 1
+        f.write("\n")
         f.close()
         return
 
@@ -69,8 +70,11 @@ with open(filepath) as fp:
     while line:
         num_tix = theater.parse_file(line.strip())
         final_seats = theater.buy_seat(num_tix)
-        theater.output_file(line.strip(), final_seats)
-        print(final_seats)
+        if (final_seats == []):
+            print("No seats found!")
+        else:
+            theater.output_file(line.strip(), final_seats)
+            print(final_seats)
         line = fp.readline()
     fp.close()
 theater.seats_left[0] = 4
