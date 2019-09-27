@@ -10,14 +10,32 @@ class Theater:
         print(content[4:])
         return content[4:]
 
-    def find_seat(self, seats):
-        return "hello"
+    def find_seat(self, char_seats):
+        num_seats = int(char_seats)
 
-    def buy_seat(self, seats):
-        booked = self.find_seat(seats)
+        found_seats = []
+        counter = 0
+        for row in range(0, len(self.seats)):
+            for seat in range(0, len(self.seats[row])):
+                if (counter != seat):
+                    found_seats = []
+                    counter = seat + 1
+                    continue
+                if (len(found_seats) >= num_seats):
+                    return found_seats
+                if (self.seats[row][seat] == None):
+                    found_seats.append([row, seat])
+                    counter += 1
+            counter = 0
+        return []
+
+    def buy_seat(self, num_seats):
+        booked = self.find_seat(num_seats)
+        if (booked == []):
+            return []
         first = booked[0]
         last = booked[-1]
-        return
+        return [first, last]
 
 
 theater = Theater()
@@ -30,5 +48,6 @@ with open(filepath) as fp:
     line = fp.readline()
     while line:
         num_tix = theater.parse_file(line.strip())
-        theater.buy_seat(num_tix)
+        final_seats = theater.buy_seat(num_tix)
+        print(final_seats)
         line = fp.readline()
