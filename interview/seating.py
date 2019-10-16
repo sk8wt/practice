@@ -1,4 +1,5 @@
 import sys
+import os
 import numpy as np
 
 
@@ -15,6 +16,8 @@ class Theater:
         found_seats = []
 
         for row in range(0, len(self.seats)):
+            # checking that there's an adequate number of seats
+            print("cur row", row, " left: ", self.seats_left[row])
             if (self.seats_left[row] >= num_seats):
                 for seat in range(0, len(self.seats[row])):
                     if (len(found_seats) == num_seats):
@@ -74,3 +77,6 @@ with open(filepath) as fp:
             theater.output_file(line.strip(), final_seats)
         line = fp.readline()
     fp.close()
+
+path = os.getcwd() + "/output.txt"
+print(path)
