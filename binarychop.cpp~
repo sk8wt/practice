@@ -1,0 +1,9 @@
+/*
+Simranjit Bhatia
+Kata02
+ */
+
+#include <iostream>
+using namespace std;
+
+cout<<"hello"<<endl;
